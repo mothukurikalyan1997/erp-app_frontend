@@ -1,0 +1,75 @@
+  
+  /* Start Form cSS */
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .f-container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+ 
+.data{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+  .Title{
+    height: 50px;
+    width: 100%;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  input, select {
+    width: 300px;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  input[type="checkbox"] {
+    width: auto;
+  }
+  
+  h3 {
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"] {
+    background: #0D4B6B;
+    color: white;
+    width: 100px;
+    height: 37px;
+  }
+  
+  button[type="button"] {
+    background: #ccc;
+    width: 100px;
+
+  }
+  

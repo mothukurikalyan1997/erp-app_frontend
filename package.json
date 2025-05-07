@@ -1,0 +1,50 @@
+{
+  "name": "erp-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ag-grid-enterprise/all-modules": "^27.3.0",
+    "@ag-media/react-pdf-table": "^2.0.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.1",
+    "@mui/material": "^7.0.1",
+    "@react-pdf/renderer": "^4.3.0",
+    "ag-grid-community": "^33.2.4",
+    "ag-grid-react": "^33.2.4",
+    "axios": "^1.8.3",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "file-saver": "^2.0.5",
+    "html2pdf.js": "^0.10.3",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^5.0.2",
+    "react": "^19.0.0",
+    "react-data-table-component": "^7.7.0",
+    "react-dom": "^19.0.0",
+    "react-to-print": "^3.0.5",
+    "recharts": "^2.15.3",
+    "styled-components": "^6.1.17",
+    "sweetalert2": "^11.19.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "react-router-dom": "^7.3.0",
+    "vite": "^6.2.0"
+  }
+}
