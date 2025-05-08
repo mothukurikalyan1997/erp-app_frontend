@@ -20,7 +20,7 @@ const EmpRegistration = () => {
     
             const [emp, setEmp] = useState({
                 empfullname: "",
-                empforginid:"",
+                EmpID:"",
                 mobile:"",
                 emptype:"",
                 eid:"",
@@ -97,7 +97,7 @@ const EmpRegistration = () => {
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>EMP Id</label>
-                <input type="text" name="empforginid" value={emp.empforginid} onChange={handleChange}  />
+                <input type="text" name="EmpID" value={emp.EmpID} onChange={handleChange}  />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Mobile Number</label>
