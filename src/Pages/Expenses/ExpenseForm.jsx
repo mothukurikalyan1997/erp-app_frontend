@@ -22,8 +22,7 @@ const ExpenseForm = () => {
     vendor: '',
     reference: '',
     expcat: '',
-    forWhom: '' || null,
-    paymentDate: ''
+    forWhom: '' || null
   });
 
   const [items, setItems] = useState([
@@ -77,7 +76,7 @@ const ExpenseForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(bill,items)
+    
     try {
       await axios.post(`${API_URL}/api/expenses`, { bill, items },{
         headers:{
@@ -88,7 +87,7 @@ const ExpenseForm = () => {
         }
       });
       alert('Expense submitted!');
-      // navigate('/purchase/expensetable')
+      navigate('/purchase/expensetable')
     } catch (err) {
       console.error(err);
       alert('Submission failed');
@@ -134,7 +133,7 @@ const ExpenseForm = () => {
                   <label style={{ width: '200px' }}>Vendor:</label>
                   <select name="vendor" onChange={handleBillChange} required>
                     <option value="">Select Account Vendor name</option>
-                    {vendor.map((e, i) => (
+                    {vendor.filter((e)=>e.type === 'Vendor').map((e, i) => (
                       <option key={i} value={e.displayName}>{e.displayName}</option>
                     ))}
                   </select>
@@ -149,7 +148,20 @@ const ExpenseForm = () => {
     <div style={{border:'1px solid #D3D3D3',borderRadius:'5px',padding:'10px'}}>
       <div style={{ width: '600px', display: 'flex', alignItems: 'center'}}>
                   <label style={{ width: '200px' }}>Expense Catagory</label>
-                  <input type="text" name="expcat" onChange={handleBillChange} required />
+                  <select name="expcat" id="" onChange={handleBillChange} required>
+                      <option value="">Select Category</option>
+                      <option value="IT & Software">IT & Software</option>
+                      <option value="Transport">Transport</option>
+                      <option value="Insurance">Insurance</option>
+                      <option value="Salaries and Wages">Salaries and Wages</option>
+                      <option value="Employee Benefits">Employee Benefits</option>
+                      <option value="Office & Administrative Expenses">Office & Administrative Expenses</option>
+                      <option value="Travel & Entertainment">Travel & Entertainment</option>
+                      <option value="Marketing & Advertising">Marketing & Advertising</option>
+                      <option value="Professional Services">Professional Services</option>
+                      <option value="Training & Development">Training & Development</option>
+                      <option value="Miscellaneous Expenses">Miscellaneous Expenses</option>
+                  </select>
                 </div>
 
                 <div style={{ width: '600px', display: 'flex', alignItems: 'center' }}>
@@ -157,10 +169,6 @@ const ExpenseForm = () => {
                   <input type="number" name="forWhom" onChange={handleBillChange} />
                 </div>
 
-                <div style={{ width: '600px', display: 'flex', alignItems: 'center' }}>
-                  <label style={{ width: '200px' }}>Actual Payment Date:</label>
-                  <input type="date" name="paymentDate" onChange={handleBillChange} />
-     </div>
 
     </div>
 
@@ -175,7 +183,7 @@ const ExpenseForm = () => {
                   return (
                     <div key={index}  className='nani-form'>
                         <div>
-                        <input name="category" type="text" placeholder="Expense Category" onChange={(e) => handleItemChange(index, e)} required />
+                        <input name="category" type="text" placeholder="Expense Item" onChange={(e) => handleItemChange(index, e)} required />
 
 <input name="amount" type="number" placeholder="Amount" onChange={(e) => handleItemChange(index, e)} required />
 

@@ -43,7 +43,7 @@ const AssignAsset = () => {
           }
         })
           .then(res => {setAsset(res.data)
-            console.log(res.data)
+            
           })
           .catch(err=> console.log(err));
         },[])
@@ -61,7 +61,7 @@ const AssignAsset = () => {
         })
           .then((res) => {
             const empdata = res.data[0]
-            console.log(empdata)
+           
             setAssign((prev)=>({
                 ...prev,
                 assetid:empdata.assetid || "",
@@ -98,7 +98,7 @@ const AssignAsset = () => {
                 'email': email,
               }
             })
-            .then(response => {console.log(response);
+            .then(response => {
               navigate('/assetmanagement')
             }
           ).catch(error => console.log(error));

@@ -72,7 +72,7 @@ useEffect(()=>{
       .then((res) => {
         const empdata = res.data
         setPhistory(empdata);
-        console.log(empdata) 
+        
       }
       
     )
@@ -92,7 +92,7 @@ const navigate = useNavigate();
               'email': email,
             }
           })
-        .then(response => {console.log(response);
+        .then(response => {
             navigate('/employeetable')
         }
         ).catch(error => console.log(error));

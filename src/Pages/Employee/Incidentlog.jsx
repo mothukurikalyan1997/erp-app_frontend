@@ -68,7 +68,7 @@ const handleChange = (e) => {
           .then((res) => {
             const empdata = res.data[0]
             setEmp(empdata);
-            console.log(empdata)
+            
             setIncident((prev)=>({
                 ...prev,
                 EmpID:empdata.EmpID || "",
@@ -93,7 +93,7 @@ const handleChange = (e) => {
               .then((res) => {
                 const empdata = res.data
                 setInchistory(empdata);
-                console.log(empdata) 
+                
               }
               
             )

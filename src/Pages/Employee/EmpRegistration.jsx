@@ -20,7 +20,7 @@ const EmpRegistration = () => {
     
             const [emp, setEmp] = useState({
                 empfullname: "",
-                empforginid:"",
+                EmpID:"",
                 mobile:"",
                 emptype:"",
                 eid:"",
@@ -58,6 +58,7 @@ const EmpRegistration = () => {
           const handleSubmit = (e) => {
 
             e.preventDefault();
+            console.log(emp)
             axios.post(`${API_URL}/emp/employee`,{emp},{
                 headers:{
                   'Authorization': `Bearer ${token}`,
@@ -66,7 +67,7 @@ const EmpRegistration = () => {
                   'email': email,
                 }
               })
-            .then(response => {console.log(response);
+            .then(response => {
               navigate('/employee/employeetable')
             }
           ).catch(error => console.log(error));
@@ -97,7 +98,7 @@ const EmpRegistration = () => {
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>EMP Id</label>
-                <input type="text" name="empforginid" value={emp.empforginid} onChange={handleChange}  />
+                <input type="text" name="EmpID" value={emp.EmpID} onChange={handleChange}  />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Mobile Number</label>

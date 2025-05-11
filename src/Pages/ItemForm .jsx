@@ -43,7 +43,7 @@ axios.post(`${API_URL}/item/item`,{formData},{
     'email': email,
   }
 })
-.then(response => {console.log(response);
+.then(response => {
     window.location.reload()
 
 }

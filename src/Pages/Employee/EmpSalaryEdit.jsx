@@ -46,7 +46,7 @@ const EmpSalaryEdit = () => {
           .then((res) => {           
 
             const empdata = res.data
-            console.log(empdata)
+            
             setSalary(empdata.result1[0])
             setDeduction(empdata.result2)
             setPenalty(empdata.result3)

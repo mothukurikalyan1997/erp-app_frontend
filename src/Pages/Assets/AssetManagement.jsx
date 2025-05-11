@@ -37,7 +37,7 @@ const AssetManagement = () => {
     })
       .then(res => {setAsset(res.data)
         setExcel(res.data)
-        console.log(res.data)
+        
       })
       .catch(err=> console.log(err));
     },[])
@@ -56,7 +56,7 @@ const AssetManagement = () => {
         }
       })
         .then(res => {setAssetlog(res.data)
-          console.log(res.data)
+          
         })
         .catch(err=> console.log(err));
       },[])
@@ -72,7 +72,7 @@ const AssetManagement = () => {
         }
       })
         .then(res => {setEmp(res.data)
-          console.log(res.data)
+          
         })
         .catch(err=> console.log(err));
       },[])

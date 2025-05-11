@@ -134,7 +134,6 @@ function Invoicelist() {
             <th>Customer</th>
             <th>Date</th>
             <th>Status</th>
-            <th>VAT (%)</th>
             <th>Total</th>
             <th>Actions</th>
           </tr>
@@ -146,7 +145,6 @@ function Invoicelist() {
               <td>{inv.customer_name}</td>
               <td>{inv.date?.split('T')[0]}</td>
               <td>{inv.status}</td>
-              <td>{inv.vat_percent}%</td>
               <td>{inv.amount ? Number(inv.amount).toFixed(2) : '0.00'}</td>
               <td>
                 <RemoveRedEyeOutlinedIcon onClick={()=>(navigate(`/invoices/${inv.id}`))} /> {' '}

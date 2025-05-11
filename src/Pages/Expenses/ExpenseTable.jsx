@@ -21,15 +21,6 @@ const ExpenseTable = () => {
   const [expenses, setExpenses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const fetchExpenses = async () => {
-  //   try {
-  //     const res = await axios.get('http://localhost:3001/api/expenses');
-  //     setExpenses(res.data);
-  //     console.log(res.data)
-  //   } catch (err) {
-  //     console.error('Error fetching expenses:', err);
-  //   }
-  // };
 
   useEffect(() => {
     axios.get(`${API_URL}/api/expenses`,{
@@ -47,10 +38,6 @@ const ExpenseTable = () => {
   const handleChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
-  // useEffect(() => {
-  //   fetchExpenses();
-  // }, [filters]);
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this expense?')) {
@@ -81,12 +68,6 @@ const ExpenseTable = () => {
       <div className="actual-container">
         <div className="white-box">
       {/* <h2>Expense List</h2>
-
-      <div>
-        <input name="vendor" placeholder="Filter by Vendor" onChange={handleFilterChange} />
-        <input name="forWhom" placeholder="Filter by Employee" onChange={handleFilterChange} />
-      </div>
-      <div><button onClick={()=>navigate('/newexpense')}>+Add Expense</button></div> */}
 
   {/* Top Icon and Search bar */}
   <div style={{display:'flex',flexDirection:'row', justifyContent:'space-between',alignItems:'center',height:'60px'}}>

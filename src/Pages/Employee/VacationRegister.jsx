@@ -47,7 +47,7 @@ const VacationRegister = () => {
                   .then((res) => {
                     const empdata = res.data[0]
                     setEmp(empdata);
-                    console.log(empdata);
+                    
                     setVacation((prev)=>({
                         ...prev,
                         EmpID:empdata.EmpID || "",
@@ -71,8 +71,8 @@ const VacationRegister = () => {
                         'email': email,
                       }
                     })
-                    .then(response => {console.log(response);
-                        navigate('/employeetable')
+                    .then(response => {
+                        window.location.reload()
                     }
                     ).catch(error => console.log(error));
                     
@@ -91,7 +91,7 @@ const VacationRegister = () => {
                         .then((res) => {
                           const empdata = res.data
                           setVhistory(empdata);
-                          console.log(empdata) 
+                          
                         }
                         
                       )

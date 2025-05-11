@@ -25,8 +25,8 @@ const dropdownMenus = [
     links: [
       { to: '/employee/employeetable', label: 'Employee Table' },
       { to: '/employee/employeesaltable', label: 'Salary Table' },
-      { to: '/employee/salarycertificate', label: 'Salary Certificate' },
-      { to: '/employee/empofferletter', label: 'Offer Letter' },
+      // { to: '/employee/salarycertificate', label: 'Salary Certificate' },
+      // { to: '/employee/empofferletter', label: 'Offer Letter' },
     ],
   },
   {

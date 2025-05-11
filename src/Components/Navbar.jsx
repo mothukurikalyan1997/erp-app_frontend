@@ -65,19 +65,6 @@ const Navbar = () => {
   
   return (
     <>
-    {/* <div className='navbar'>
-      <div className="Title">
-        <h2>AWRS+</h2>
-      </div>
-      <div className="nav-list">
-        <ul>
-            <Link to={'/'}><li>Home</li></Link>
-            <Link to={'/Profile'}><li>Profile</li></Link>
-            <Link  onClick={handleLogout}><li>Logout<LogoutIcon/></li></Link>
-        </ul>
-      </div>
-    </div> */}
-
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">
@@ -93,21 +80,6 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-    {/* <div className="sub-menu">
-        <ul>
-            <Link to={'/'}><li>Dashboard</li></Link>
-            <Link to={'/Customers'}><li>Partner's Data</li></Link>
-            <Link to={'/expensedata'}><li>Expenses</li></Link>
-            <Link to={'/item'}><li>Item</li></Link>
-            <Link to={'/Banking'}><li>Banking</li></Link>
-            <Link to={'/'}><li>Accounts</li></Link>
-            <Link to={'/Sellingdata'}><li>Selling_Data</li></Link>
-            <Link to={'/Invoice'}><li>Invoice</li></Link>
-            <Link to={'/Invoiceform'}><li>Invoice_Form</li></Link>
-            <Link to={'/'}><li>Reports</li></Link>
-            
-        </ul>
-    </div> */}
     </>
   )
 }

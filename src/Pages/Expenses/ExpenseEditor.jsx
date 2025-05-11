@@ -22,8 +22,7 @@ const ExpenseEditor = () => {
     vendor: '',
     reference: '',
     expcat:'',
-    forWhom: '' || null,
-    paymentDate: '',
+    forWhom: '' || null
   });
 
   const [items, setItems] = useState([
@@ -87,8 +86,7 @@ const ExpenseEditor = () => {
         vendor: fetchedBill.vendor || '',
         reference: fetchedBill.reference || '',
         expcat: fetchedBill.exp_cat || '',        
-        forWhom: fetchedBill.forWhom || '',
-        paymentDate: fetchedBill.payment_date?.split('T')[0] || '',
+        forWhom: fetchedBill.forWhom || ''
       });
       setItems(
         fetchedItems.map((item) => ({
@@ -198,10 +196,6 @@ const ExpenseEditor = () => {
                 <div style={{ width: '600px', display: 'flex', alignItems: 'center' }}>
                   <label style={{ width: '200px' }}>For Whom (Employee ID):</label>
                   <input type="number" name="forWhom" value={bill.forWhom} onChange={handleBillChange} />
-                </div>
-                <div style={{ width: '600px', display: 'flex', alignItems: 'center' }}>
-                  <label style={{ width: '200px' }}>Payment Date:</label>
-                  <input type="date" name="paymentDate" value={bill.paymentDate} onChange={handleBillChange} />
                 </div>
 
                 <h3>Line Items</h3>

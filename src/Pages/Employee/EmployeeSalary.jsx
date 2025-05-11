@@ -21,7 +21,8 @@ const EmployeeSalary = () => {
             sickleave:'',
             totalworkingdays:'',
             grosssalary:'',
-            remark:''
+            remark:'',
+            paid_through:''
           });
         
           const handleChange = (e) => {
@@ -45,7 +46,7 @@ const EmployeeSalary = () => {
               'email': email,
             }
           })
-          .then(response => {console.log(response);
+          .then(response => {
               navigate('/employee/employeesaltable')
           }
           ).catch(error => console.log(error));
@@ -72,11 +73,11 @@ const EmployeeSalary = () => {
         <form action="" method="post" >
         <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Salary Month</label>
-                <input type="text" name="month" onChange={handleChange} value={salary.month} required/>
+                <input type="text" name="month" onChange={handleChange} value={salary.month} placeholder='Ex: Jan/Feb/Mar/Apr' required/>
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Salary Year</label>
-                <input type="text" name="year" onChange={handleChange}  value={salary.year}/>
+                <input type="text" name="year" onChange={handleChange} placeholder='Ex: 2025' value={salary.year}/>
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>EMP ID</label>
@@ -109,6 +110,10 @@ const EmployeeSalary = () => {
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Remark's</label>
                 <input type="text" name="remark" onChange={handleChange}  value={salary.remark}/>
+            </div>
+            <div style={{width:'600px', display:'flex', alignItems:'center'}}>
+                <label htmlFor="" style={{width:'200px'}}>Paid_through</label>
+                <input type="text" name="paid_through" onChange={handleChange}  value={salary.paid_through}/>
             </div>
 
 

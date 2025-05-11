@@ -10,15 +10,12 @@ const Profile = () => {
   const email = localStorage.getItem('email')
   
     const [user, setUser] = useState({
-        fullName: "",
-        displayName: "",
-        gender: "",
+        companyid: "",
+        companyname: "",
+        displayname: "",
         country: "",
-        mailAddress: "",
-        mobileNumber: "",
-        bankName: "",
-        accountNumber: "",
-        trnNumber: "",
+        maidid: "",
+        mobile: ""
       });
     
       const handleChange = (e) => {
@@ -44,11 +41,22 @@ const Profile = () => {
           <div className="profile-fields">
             <div className="form-grid">
               <div className="input-group">
-                <label className="profile-label">Full Name</label>
+                <label className="profile-label">Company ID</label>
                 <input
                   type="text"
-                  name="fullName"
-                  value={user.fullName}
+                  name="companyid"
+                  value={company_id}
+                  onChange={handleChange}
+                  className="profile-input"
+                  readOnly
+                />
+              </div>
+              <div className="input-group">
+                <label className="profile-label">Company Name</label>
+                <input
+                  type="text"
+                  name="companyname"
+                  value={user.companyname}
                   onChange={handleChange}
                   className="profile-input"
                 />
@@ -57,83 +65,34 @@ const Profile = () => {
                 <label className="profile-label">Display Name</label>
                 <input
                   type="text"
-                  name="displayName"
-                  value={user.displayName}
+                  name="displayname"
+                  value={user.displayname}
                   onChange={handleChange}
                   className="profile-input"
                 />
               </div>
               <div className="input-group">
-                <label className="profile-label">Gender</label>
+                <label className="profile-label">Mail ID</label>
                 <input
                   type="text"
-                  name="gender"
-                  value={user.gender}
+                  name="maidid"
+                  value={email}
                   onChange={handleChange}
                   className="profile-input"
-                />
-              </div>
-              <div className="input-group">
-                <label className="profile-label">Country</label>
-                <input
-                  type="text"
-                  name="country"
-                  value={user.country}
-                  onChange={handleChange}
-                  className="profile-input"
-                />
-              </div>
-              <div className="input-group">
-                <label className="profile-label">Mail Address</label>
-                <input
-                  type="text"
-                  name="mailAddress"
-                  value={user.mailAddress}
-                  onChange={handleChange}
-                  className="profile-input"
+                  readOnly
                 />
               </div>
               <div className="input-group">
                 <label className="profile-label">Mobile Number</label>
                 <input
                   type="text"
-                  name="mobileNumber"
-                  value={user.mobileNumber}
+                  name="mobile"
+                  value={user.mobile}
                   onChange={handleChange}
                   className="profile-input"
                 />
               </div>
               
-              <div className="input-group">
-                <label className="profile-label">Bank Name</label>
-                <input
-                  type="text"
-                  name="bankName"
-                  value={user.bankName}
-                  onChange={handleChange}
-                  className="profile-input"
-                />
-              </div>
-              <div className="input-group">
-                <label className="profile-label">Account Number</label>
-                <input
-                  type="text"
-                  name="accountNumber"
-                  value={user.accountNumber}
-                  onChange={handleChange}
-                  className="profile-input"
-                />
-              </div>
-              <div className="input-group">
-                <label className="profile-label">TRN Number</label>
-                <input
-                  type="text"
-                  name="trnNumber"
-                  value={user.trnNumber}
-                  onChange={handleChange}
-                  className="profile-input"
-                />
-              </div>
             </div>
             <button className="save-button">Save Changes</button>
           </div>

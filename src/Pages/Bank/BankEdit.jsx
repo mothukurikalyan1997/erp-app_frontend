@@ -32,7 +32,7 @@ const BankEdit = () => {
             'email': email,
           }
         })
-        .then(res => {console.log(res.data[0])
+        .then(res => {
           setValuee(res.data[0]);})
         .catch(err => console.log(err));
     },[])
@@ -60,7 +60,7 @@ const BankEdit = () => {
           }
         })
         .then(response => {
-          console.log(response);
+          
           navigate("/Banking");
         }).catch(err => console.log(err));       
         
@@ -130,7 +130,7 @@ const BankEdit = () => {
   required
 />
 <button type="submit">Update</button>
-</form>
+</form><button className='nani-cancel' onClick={()=>navigate('/Banking')}>Back</button>
 
         </div>
       </div>

@@ -47,7 +47,7 @@ const AssetRegister = () => {
             'email': email,
           }
         })
-        .then(response => {console.log(response);
+        .then(response => {
           navigate('/assetmanagement')
         }
       ).catch(error => console.log(error));

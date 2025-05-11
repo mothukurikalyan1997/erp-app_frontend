@@ -91,7 +91,6 @@ const Edit = () => {
           }
         })
         .then(response => {
-          console.log(response);
           window.alert("Update Sucessfull")
           navigate("/partner/Customers");
         }).catch(err => console.log(err));       
@@ -109,7 +108,7 @@ const Edit = () => {
               'email': email,
             }
           })
-          .then(res => {console.log(res.data[0])
+          .then(res => {
             setValuee(res.data[0]);})
           .catch(err => console.log(err));
       },[])

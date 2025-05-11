@@ -66,7 +66,7 @@ const AssetDamageCharge = () => {
               'email': email,
             }
           })
-        .then(response => {console.log(response);
+        .then(response => {
             navigate('/employeetable')
             console.log(damage);
         }
@@ -85,9 +85,9 @@ const AssetDamageCharge = () => {
               })
                 .then(res => {setImages(res.data);
                     if(res.data.lenght >0){
-                        console.log("resdata is high")
+                        
                     }
-                    console.log("resdata is low")
+                    
                 }
             
             )

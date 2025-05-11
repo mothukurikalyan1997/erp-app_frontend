@@ -53,7 +53,7 @@ const Banking = () => {
         'email': email,
       }
     })
-    .then(response => {console.log(response);
+    .then(response => {
       window.location.reload()
     }
   ).catch(error => console.log(error));
@@ -78,7 +78,7 @@ const handlesearch = (event) => {
   setSearchQuery(event.target.value);
 };
 
-const total = datas.reduce((sum, item) => sum + item.Openingbalance, '');
+const total = datas.reduce((sum, item) => sum + parseInt(item.Openingbalance || 0, 10), 0);
 
   return (
     <>
@@ -171,7 +171,9 @@ const total = datas.reduce((sum, item) => sum + item.Openingbalance, '');
         <th>AccountNumber</th>
         <th>IBAN</th>
         <th>Openingbalance</th>
-        <th>Remark</th>
+        <th>Total Expenses</th>
+        <th>Salary Amount</th>
+        <th>Available Bal.</th>
         <th>Action</th>
 
         </tr>
@@ -187,7 +189,9 @@ const total = datas.reduce((sum, item) => sum + item.Openingbalance, '');
               <td>{data.accountNumber}</td>
               <td>{data.IBAN}</td>
               <td>{data.Openingbalance}</td>
-              <td>{data.Remark}</td>
+              <td>{data.Expense_amount}</td>
+              <td>{data.net_salary}</td>
+              <td>{data.available_bal}</td>
               <td >
                 <button className='action' style={{width:'40px'}}><Link to={`/bankedit/${data.accountNumber}`} style={{color:'white',textDecoration:'none'}}>Edit</Link></button>
               </td>
@@ -199,7 +203,7 @@ const total = datas.reduce((sum, item) => sum + item.Openingbalance, '');
        </tbody>
       </table>
       </div>
-        <div style={{color:'green',fontWeight:'bold'}}>Opening Balance: {total} AED | Available Amount: XXXXX</div>
+        <div style={{color:'green',fontWeight:'bold'}}>Opening Balance: {total} AED</div>
 
         </div>
       </div>

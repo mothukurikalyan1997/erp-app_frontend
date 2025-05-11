@@ -27,7 +27,6 @@ const EmpSalTable = () => {
       const tableref = useRef();
 
   
-
     const [salary,setSalary] = useState([])
     const [excel,setExcel] = useState([])
     const [searchQuery, setSearchQuery] = useState("");
@@ -55,22 +54,7 @@ const EmpSalTable = () => {
           .catch(err=> console.log(err));
         },[])
     
-
         const release = (empID,month,year)=>{
-          // Swal.fire({
-          //   toast: true,
-          //   position: 'top-end',         // Top right corner
-          //   icon: 'info',                // You can change to 'success', 'error', etc.
-          //   title: 'This is your message!',
-          //   showConfirmButton: false,    // No "OK" button
-          //   timer: 10000,                // 10 seconds (in milliseconds)
-          //   timerProgressBar: true,
-          //   didOpen: (toast) => {
-          //     toast.addEventListener('mouseenter', Swal.stopTimer)
-          //     toast.addEventListener('mouseleave', Swal.resumeTimer)
-          //   }
-          // });
-
           Swal.fire({
             title: "Did you paid To Employee?",
             text: "You won't be able to revert this!",
@@ -89,7 +73,7 @@ const EmpSalTable = () => {
                   'email': email,
                 }
               })
-          .then(response => {console.log(response);
+          .then(response => {
               // navigate('/employeetable')
               console.log({empID,month});
               window.location.reload()
@@ -108,7 +92,6 @@ const EmpSalTable = () => {
           saveAs(blob, 'Employee_Salary.xlsx');
         };
   
-
   return (
     <>
     <Navbar/>

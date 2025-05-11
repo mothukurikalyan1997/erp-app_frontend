@@ -65,7 +65,7 @@ const Form = () => {
               'email': email,
             }
           })
-          .then(response => {console.log(response);
+          .then(response => {
             navigate('/partner/Customers')
           }
         ).catch(error => console.log(error));
