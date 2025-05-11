@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {API_URL} from '../data/Data'
-import BeatLoader from 'react-spinners/BeatLoader';
 import Sidenav from './Sidenav';
 import axios from 'axios';
 

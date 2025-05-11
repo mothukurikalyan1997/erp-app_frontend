@@ -68,7 +68,7 @@ const ViewInvoice = () => {
       </div>
       <div className="actual-container">
         <div className="white-box">
-        <div  style={{ fontFamily: 'Arial, sans-serif', background: '#fff', padding: 20, borderRadius: 8 ,height:'794px',width:'1123px',margin: '0 auto',padding: '40px',boxSizing: 'border-box'}}>
+        <div  style={{ fontFamily: 'Arial, sans-serif', background: '#fff', borderRadius: 8 ,height:'794px',width:'1123px',margin: '0 auto',padding: '40px',boxSizing: 'border-box'}}>
   <div id="invoice-pdf" style={{ padding: 20, border: '1px solid #ccc', borderRadius: 8, background: '#f9f9f9' }}>
     
     {/* Header Section */}
