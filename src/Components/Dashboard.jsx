@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import {API_URL} from '../data/Data'
 import { BeatLoader } from 'react-spinners';
 import Sidenav from './Sidenav';
-import { BeatLoader } from 'react-spinners';
 import axios from 'axios';
 
 import { BarChart, Bar, XAxis, ResponsiveContainer, Tooltip } from 'recharts';
