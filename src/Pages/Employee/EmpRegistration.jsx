@@ -16,7 +16,7 @@ const EmpRegistration = () => {
     const email = localStorage.getItem('email')
 
     const navigate = useNavigate();
-
+    const [file, setFile] = useState(null);
     
             const [emp, setEmp] = useState({
                 empfullname: "",
@@ -74,6 +74,24 @@ const EmpRegistration = () => {
     
           }
     
+          //Excel upload
+            const handleChanges = (e) => setFile(e.target.files[0]);
+
+            const handleUpload = async () => {
+
+    const formData = new FormData();
+    formData.append('excelFile', file);
+    console.log(file)
+
+    try {
+      const res = await axios.post(`${API_URL}/emp/uploademployee`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      console.log('Response:', res.data);
+    } catch (err) {
+      console.error('Error uploading file', err);
+    }
+  };
 
           
   return (
@@ -89,7 +107,10 @@ const EmpRegistration = () => {
         <div >
             <Link to={'/employee/employeetable'} ><CloseOutlinedIcon style={{ fontSize: '30px', color: 'white', backgroundColor: 'tomato', padding: '6px', borderRadius: '6px',marginRight:'5px' }}/></Link>
         </div>
-
+        <div>
+            <input type="file" accept=".xlsx" onChange={handleChanges} />
+            <button onClick={handleUpload} className='nani'>Upload Excel</button>
+        </div>
         <form action="" method="post" onSubmit={handleSubmit} >
         <p style={{backgroundColor:'#3b7483',padding:'5px',display:'flex',color:'white',fontWeight:'bold',borderRadius:'10px',paddingLeft:'15px',justifyContent:'flex-start',alignContent:'flex-start'}}>Personal Details</p>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>

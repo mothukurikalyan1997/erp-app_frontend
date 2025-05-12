@@ -133,7 +133,17 @@ const exportToExcel = () => {
         </thead>
        <tbody>
         {asset.filter((e)=>{
-          return searchQuery.toLowerCase() === '' ? e : String(e.assetid).includes(searchQuery) || e.assetname.toLowerCase().includes(searchQuery) || String(e.AssignedTo).includes(searchQuery);
+          const query = searchQuery.toLowerCase();
+          if (query === '') return true;
+          return (
+      String(e.assetid).toLowerCase().includes(query) ||
+      String(e.assetname).toLowerCase().includes(query) ||
+      String(e.assettype).toLowerCase().includes(query) ||
+      String(e.amount).toLowerCase().includes(query) ||
+      String(e.status).toLowerCase().includes(query) ||
+      String(e.AssignedTo || "Free to Assign").toLowerCase().includes(query) ||
+      String(e.empfullname).toLowerCase().includes(query)
+    );
         }).map((e,i)=>{
             return(
               <tr key={i}>
@@ -142,8 +152,8 @@ const exportToExcel = () => {
               <td>{e.assettype}</td>
               <td>AED {e.amount}</td>
               <td>{e.status}</td>
-              <td>{e.AssignedTo || "Free to Assign" }</td>
-              <td>{e.empfullname || "Free to Assign" }</td>
+              <td>{e.AssignedTo || 'Free to Assign' }</td>
+              <td>{e.empfullname || 'Free to Assign' }</td>
               <td >
 
                 <Link to={`/assetactions/${e.assetid}`}><EditNoteOutlinedIcon/></Link>

@@ -14,6 +14,7 @@ const AssetRegister = () => {
 
   const navigate = useNavigate();
   const [vendors,setVendors] = useState([])
+  const [file, setFile] = useState(null);
 
   const [asset,setAsset] = useState({
     assettype:"",
@@ -71,6 +72,24 @@ const AssetRegister = () => {
         .catch(err=> console.log(err));
     },[])
 
+            //Excel upload
+            const handleChanges = (e) => setFile(e.target.files[0]);
+
+            const handleUpload = async () => {
+
+    const formData = new FormData();
+    formData.append('excelFile', file);
+    console.log(file)
+
+    try {
+      const res = await axios.post(`${API_URL}/asset/uploadasset`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      console.log('Response:', res.data);
+    } catch (err) {
+      console.error('Error uploading file', err);
+    }
+  };
     
   return (
     <>
@@ -81,6 +100,10 @@ const AssetRegister = () => {
         </div>
         <div className="actual-container">
             <div className="white-box">
+              <div>
+            <input type="file" accept=".xlsx" onChange={handleChanges} />
+            <button onClick={handleUpload} className='nani'>Upload Excel</button>
+        </div>
             <h1 style={{height:'fit-content',padding:'5px'}}>Asset Register</h1>
             <button type="" onClick={()=>(navigate('/assetmanagement'))}>Back</button>
             <form action="" method="post" onSubmit={handleSubmit}>

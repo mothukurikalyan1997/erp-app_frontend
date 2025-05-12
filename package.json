@@ -30,6 +30,7 @@
     "react": "^19.0.0",
     "react-data-table-component": "^7.7.0",
     "react-dom": "^19.0.0",
+    "react-spinners": "^0.17.0",
     "react-to-print": "^3.0.5",
     "recharts": "^2.15.3",
     "styled-components": "^6.1.17",
