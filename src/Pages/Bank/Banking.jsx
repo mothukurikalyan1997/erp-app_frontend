@@ -60,7 +60,7 @@ const Banking = () => {
 
   }
 
-  useEffect(()=>{
+useEffect(()=>{
 const token = localStorage.getItem('token');
 axios.get(`${API_URL}/bank/bank/data`,{
   headers:{
@@ -79,6 +79,7 @@ const handlesearch = (event) => {
 };
 
 const total = datas.reduce((sum, item) => sum + parseInt(item.Openingbalance || 0, 10), 0);
+const availabletotal = datas.reduce((sum, item) => sum + parseInt(item.available_bal || 0, 10), 0);
 
   return (
     <>
@@ -204,6 +205,7 @@ const total = datas.reduce((sum, item) => sum + parseInt(item.Openingbalance || 
       </table>
       </div>
         <div style={{color:'green',fontWeight:'bold'}}>Opening Balance: {total} AED</div>
+        <div style={{color: parseFloat(availabletotal) < 0 ? 'red' : 'green',fontWeight:'bold'}}>Available Balance: {availabletotal} AED</div>
 
         </div>
       </div>
@@ -214,47 +216,3 @@ const total = datas.reduce((sum, item) => sum + parseInt(item.Openingbalance || 
 export default Banking
 
 
-{/* <div className="table-container" id='my-table'>
-
-<div className='sub-head' style={{display:'flex', alignItems:'center', justifyContent:'space-between',height:'50px', paddingLeft:'5px',paddingRight:'10px'}}>
-  <div>
-    <input
-    type="text"
-    className="search-input"
-    placeholder="Search by Account Holder"
-    value={searchQuery}
-    onChange={handlesearch}
-    />
-  </div>
-
-<div><button onClick={exportToExcel}>Export to Excel</button></div>
-</div>
-  <table className="dynamic-tables" id='printTable'>
-    <thead>
-      <tr>
-        <th>BankName</th>
-        <th>AccountHolder</th>
-        <th>AccountNumber</th>
-        <th>IBAN</th>
-        <th>Openingbalance</th>
-        <th>Remark</th>
-      </tr>
-    </thead>
-    <tbody>
-      {datas.filter((e)=>{
-    return searchQuery.toLowerCase() === '' ? e : e.accountHolder.toLowerCase().includes(searchQuery);
-  }).map((data, index) => (
-        <tr key={index}>
-          <td>{data.BankName}</td>
-          <td>{data.accountHolder}</td>
-          <td>{data.accountNumber}</td>
-          <td>{data.IBAN}</td>
-          <td>{data.Openingbalance}</td>
-          <td>{data.Remark}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-
-
-    </div> */}

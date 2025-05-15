@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import {API_URL} from '../data/Data'
 import Navbar from '../Components/Navbar';
 import Sidenav from '../Components/Sidenav';
+import axios from 'axios';
 
 
 const Profile = () => {
@@ -10,18 +12,28 @@ const Profile = () => {
   const email = localStorage.getItem('email')
   
     const [user, setUser] = useState({
-        companyid: "",
-        companyname: "",
-        displayname: "",
+        company_id: "",
+        company_name: "",
+        display_Name: "",
         country: "",
         maidid: "",
-        mobile: ""
+        mobile_number: ""
       });
     
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUser((prev) => ({ ...prev, [name]: value }));
-      };
+      useEffect(()=>{
+      const token = localStorage.getItem('token');
+      axios.get(`${API_URL}/ProfileData`,{
+        headers:{
+          'Authorization': `Bearer ${token}`,
+          'company_id': company_id,
+          'role': role,
+          'email': email,
+        }
+      })
+        .then(res => setUser(res.data[0]))
+        .catch(err=> console.log(err));
+      },[])
+      
     
       return (
         <>
@@ -45,8 +57,8 @@ const Profile = () => {
                 <input
                   type="text"
                   name="companyid"
-                  value={company_id}
-                  onChange={handleChange}
+                  value={user.company_id}
+                  
                   className="profile-input"
                   readOnly
                 />
@@ -56,8 +68,8 @@ const Profile = () => {
                 <input
                   type="text"
                   name="companyname"
-                  value={user.companyname}
-                  onChange={handleChange}
+                  value={user.company_name}
+                  readOnly
                   className="profile-input"
                 />
               </div>
@@ -66,8 +78,18 @@ const Profile = () => {
                 <input
                   type="text"
                   name="displayname"
-                  value={user.displayname}
-                  onChange={handleChange}
+                  value={user.display_Name}
+                  readOnly
+                  className="profile-input"
+                />
+              </div>
+              <div className="input-group">
+                <label className="profile-label">Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  value={user.country}
+                  readOnly
                   className="profile-input"
                 />
               </div>
@@ -77,7 +99,7 @@ const Profile = () => {
                   type="text"
                   name="maidid"
                   value={email}
-                  onChange={handleChange}
+                  
                   className="profile-input"
                   readOnly
                 />
@@ -86,15 +108,16 @@ const Profile = () => {
                 <label className="profile-label">Mobile Number</label>
                 <input
                   type="text"
-                  name="mobile"
-                  value={user.mobile}
-                  onChange={handleChange}
+                  name="mobile_number"
+                  value={user.mobile_number}
+                  
                   className="profile-input"
+                  readOnly
                 />
               </div>
               
             </div>
-            <button className="save-button">Save Changes</button>
+            {/* <button className="save-button">Save Changes</button> */}
           </div>
         </div>
 

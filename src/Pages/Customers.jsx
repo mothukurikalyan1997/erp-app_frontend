@@ -122,7 +122,7 @@ const Customers = () =>{
           </div>
     </div> 
   {/* Close */}
-       <div style={{height: '400px', overflowY: 'auto', border: '1px solid #ccc'}}>
+       <div style={{height: '500px', overflowY: 'auto', border: '1px solid #ccc'}}>
       <table className='dynamic-table'>
        <thead style={{ position: 'sticky', top: 0, background: '#f9f9f9' }}>
         <tr>

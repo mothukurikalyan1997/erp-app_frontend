@@ -10,9 +10,11 @@ import AddIcon from '@mui/icons-material/Add';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 
+
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link, Navigate } from 'react-router-dom';
 
 const EmployeeTable = () => {
@@ -87,7 +89,7 @@ const exportToExcel = () => {
     </div> 
   {/* Close */}
 
-       <div style={{height: '400px', overflowY: 'auto', border: '1px solid #ccc'}}>
+       <div style={{height: '500px', overflowY: 'auto', border: '1px solid #ccc'}}>
       <table className='dynamic-table' >
         <thead style={{ position: 'sticky', top: 0, background: '#f9f9f9' }}>
       <tr >
@@ -97,26 +99,29 @@ const exportToExcel = () => {
         <th>Mobile</th>
         <th>Associated With</th>
         <th>Work Location</th>
-        <th>Location ID</th>
+        <th>Assigned Asset</th>
+        <th>Status</th>
         <th>Action</th>
 
         </tr>
         </thead>
        <tbody>
         {emp.filter((e)=>{
-          return searchQuery.toLowerCase() === '' ? e : e.empfullname.toLowerCase().includes(searchQuery) || String(e.EmpID).includes(searchQuery) || String(e.externalid).includes(searchQuery) ||String(e.mobile).includes(searchQuery);
+          return searchQuery.toLowerCase() === '' ? e : e.empfullname.toLowerCase().includes(searchQuery) || String(e.EmpID).includes(searchQuery) ||String(e.Assets).includes(searchQuery) || String(e.externalid).includes(searchQuery) ||String(e.mobile).includes(searchQuery);
         }).map((e,i)=>{
             return(
               <tr key={i}>
               <td>{e.EmpID}</td>
               <td>{e.externalid}</td>
-              <td>{e.empfullname}</td>
+              <td style={{textAlign:'left'}}>{e.empfullname}</td>
               <td>{e.mobile}</td>
               <td>{e.workingcompany}</td>
-              <td>{e.worklocation}</td>
-              <td>{e.locationid}</td>
+              <td style={{textAlign:'left'}}>{e.worklocation}</td>
+              <td>{e.Assets}</td>
+              <td style={{color:e.status === 'Active' ? 'green': 'red'}}>{e.status}</td>
               <td >
-              <Link to={`/employeeactions/${e.EmpID}`} ><EditNoteOutlinedIcon/></Link>
+              <Link to={`/employeeedit/${e.EmpID}`} ><EditIcon style={{color:'black'}}/></Link>
+              <Link to={`/employeeactions/${e.EmpID}`} ><MoreVertIcon style={{color:'black'}}/></Link>
               </td>
             </tr>
                 

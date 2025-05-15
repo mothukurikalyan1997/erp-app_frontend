@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 import AddIcon from '@mui/icons-material/Add';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 
@@ -116,7 +117,7 @@ const exportToExcel = () => {
   {/* Close */}
  
               
-          <div style={{height: '400px', overflowY: 'auto', border: '1px solid #ccc'}}>
+          <div style={{height: '500px', overflowY: 'auto', border: '1px solid #ccc'}}>
           <table className='dynamic-table' >
         <thead style={{ position: 'sticky', top: 0, background: '#f9f9f9' }}>
       <tr >
@@ -156,7 +157,7 @@ const exportToExcel = () => {
               <td>{e.empfullname || 'Free to Assign' }</td>
               <td >
 
-                <Link to={`/assetactions/${e.assetid}`}><EditNoteOutlinedIcon/></Link>
+                <Link to={`/assetactions/${e.assetid}`}><MoreVertIcon style={{color:'black'}}/></Link>
               </td>
             </tr>
                 

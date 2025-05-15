@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {API_URL} from '../../data/Data'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidenav from '../../Components/Sidenav';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
@@ -14,6 +14,7 @@ const CreateInvoice = () => {
   const email = localStorage.getItem('email');
 
   const navigate = useNavigate();
+  const [customer,setCustomer] = useState([])
 
   const [form, setForm] = useState({
     invoice_number: '',
@@ -113,6 +114,22 @@ const CreateInvoice = () => {
     return getSubtotal() + getTotalVAT();
   };
 
+          useEffect(()=>{
+            const token = localStorage.getItem('token');
+            axios.get(`${API_URL}/partner/consumer`,{
+              headers:{
+                'Authorization': `Bearer ${token}`,
+                'company_id': company_id,
+                'role': role,
+                'email': email,
+              }
+            })
+              .then(res => {
+                setCustomer(res.data)
+              })
+              .catch(err=> console.log(err));
+          },[])
+  
   return (
     <>
       <Navbar />
@@ -163,13 +180,17 @@ const CreateInvoice = () => {
                   onChange={(e) => handleForm('invoice_number', e.target.value)}
                 />
                 </div>
+
                 <div style={{display:'flex', alignItems:'center',gap:'30px'}}>
                 <label>Customer Name:</label>
-                <input
-                  type="text"
-                  onChange={(e) => handleForm('customer_name', e.target.value)}
-                />
+                <select name="customer_name" onChange={(e) => handleForm('customer_name', e.target.value)}>
+                  <option value="">Select Customer</option>
+                  {customer.filter(c => c.type === 'Customer').map((e,i)=>(
+                    <option key={i} value={e.displayName}>{e.displayName}</option>
+                  ))}
+                </select>
                 </div>
+
                 <div style={{display:'flex', alignItems:'center',gap:'30px'}}>
                 <label>Invoice Date:</label>
                 <input

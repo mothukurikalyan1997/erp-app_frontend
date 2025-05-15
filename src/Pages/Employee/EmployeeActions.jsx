@@ -8,10 +8,15 @@ import VacationRegister from './VacationRegister'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Incidentlog from './Incidentlog'
 import AssetDamageCharge from './AssetDamageCharge'
+import { useEffect } from 'react'
 
 
 const EmployeeActions = () => {
-    const [page, setPage] = useState('vacation');
+    const [page, setPage] = useState(() => localStorage.getItem('lastPage') || 'vacation');
+
+    useEffect(() => {
+  localStorage.setItem('lastPage', page);
+}, [page]);
 
     const renderComponent = () => {
         switch (page) {
@@ -45,7 +50,7 @@ const EmployeeActions = () => {
         <button onClick={() => setPage('incidentlog')} className='opt-btn'>Incident Log</button>      
         <button onClick={() => setPage('Assetdamage')} className='opt-btn'>Emp Deductions</button>      
         </div>
-        <div style={{width:'50%',marginLeft:'5%',marginTop:'30px'}}>
+        <div style={{width:'50%',marginLeft:'5%',marginTop:'30px'}} key={page}>
             {renderComponent()}
         </div>
 

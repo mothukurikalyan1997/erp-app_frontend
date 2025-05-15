@@ -11,12 +11,14 @@ const AssetDamageCharge = () => {
     const role = localStorage.getItem('role')
     const email = localStorage.getItem('email')
   
+    const {id} = useParams();
 
     const [images,setImages] = useState([])
+    const [vacation,setVacation] = useState([])
 
     const [damage, setDamage] = useState({
         empID:"",
-        empfullname:"",
+        employeename:"",
         deductcat:"",
         date:"",
         dmginv:"",
@@ -67,15 +69,15 @@ const AssetDamageCharge = () => {
             }
           })
         .then(response => {
-            navigate('/employeetable')
-            console.log(damage);
+            // navigate('/employeetable')
+            window.location.reload()
         }
         ).catch(error => console.log(error));
         
         }
 
             useEffect(() => {
-              axios.get(`${API_URL}/asset/damageassetdata`,{
+              axios.get(`${API_URL}/asset/damageassetdata/${id}`,{
                 headers:{
                   'Authorization': `Bearer ${token}`,
                   'company_id': company_id,
@@ -83,22 +85,36 @@ const AssetDamageCharge = () => {
                   'email': email,
                 }
               })
-                .then(res => {setImages(res.data);
-                    if(res.data.lenght >0){
-                        
-                    }
-                    
+                .then(res => {setImages(res.data);  
                 }
             
             )
 
                 .catch(err => console.error(err));
             }, []);
-        
-                const formatDate = (dateString) => {
-                    const date = new Date(dateString);
-                    return format(date, 'MMM-yyyy'); // Custom format to display 'YYYY-MM-DD'
-                  };
+
+              useEffect(()=>{
+                axios.get(`${API_URL}/emp/employeepenalty/${id}`,{
+                  headers:{
+                    'Authorization': `Bearer ${token}`,
+                    'company_id': company_id,
+                    'role': role,
+                    'email': email,
+                  }
+                })
+                  .then((res) => {
+                    const empdata = res.data[0]
+                    setDamage((prev)=>({
+                        ...prev,
+                        empID:empdata.EmpID || "",
+                        employeename:empdata.empfullname || ""
+                    }))  
+                  }
+                  
+                )
+                  .catch(err=> console.log(err));
+                },[])
+
     
   return (
     <>
@@ -106,15 +122,15 @@ const AssetDamageCharge = () => {
         <form action="" method="post" >
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>EMP ID</label>
-                <input type="text" name="empID"  onChange={handleChange}  />
+                <input type="text" name="empID" value={damage.empID} onChange={handleChange}  />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>EMP Full Name</label>
-                <input type="text" name="empfullname"  onChange={handleChange}  />
+                <input type="text" name="employeename" value={damage.employeename}  onChange={handleChange}  />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Deduction Catogory</label>
-                <select name="deductcat" onChange={handleChange} >
+                <select name="deductcat" onChange={handleChange} value={damage.deductcat} >
                     <option value="">Select Catogory</option>
                     <option value="AssetDamageCharge" >Asset Damage Charge</option>
                     <option value="SalaryAdvance" >Salary Advance</option>
@@ -123,26 +139,26 @@ const AssetDamageCharge = () => {
                     <option value="OtherFine" >Other Fines</option>
                     <option value="Salik" >Salik</option>
                     <option value="TrainingCost" >Training Cost</option>
-                    <option value="TrainingCost" >Penalty</option>
+                    <option value="Penalty" >Penalty</option>
                     <option value="Reimbursement" >Reimbursement</option>
                 </select>
             </div>
 
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Date</label>
-                <input type="date" name="date"  onChange={handleChange}  />
+                <input type="date" name="date"  onChange={handleChange} value={damage.date} />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Invoice/Reference No.</label>
-                <input type="text" name="dmginv"  onChange={handleChange}  />
+                <input type="text" name="dmginv"  onChange={handleChange} value={damage.dmginv} />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Amount</label>
-                <input type="text" name="amt"  onChange={handleChange}  />
+                <input type="text" name="amt"  onChange={handleChange} value={damage.amt} />
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Remark's</label>
-                <input type="text" name="remark"  onChange={handleChange}  />
+                <input type="text" name="remark"  onChange={handleChange} value={damage.remark} />
             </div>
 
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
@@ -150,20 +166,6 @@ const AssetDamageCharge = () => {
             </div>
 
        </form>
-       {/* <div>
-        <p>{images.empfullname}</p>
-       <h2>{images.empfullname}</h2>
- {images.dmgattach ? (
-              <img
-                src={`data:${images.mimetype};base64,${images.dmgattach}`}
-                alt={images.filename}
-                style={{ width: '200px', height: 'auto' }}
-              />
-            ) : (
-              <p>No image available</p> // Fallback text if no image is available
-            )}
-
-       </div> */}
 
 
     <div>

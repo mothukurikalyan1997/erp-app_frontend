@@ -3,6 +3,8 @@ import {API_URL} from '../../data/Data'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 
 
 const Incidentlog = () => {
@@ -47,9 +49,7 @@ const handleChange = (e) => {
           'email': email,
         }
       })
-      .then(response => {console.log(response);
-        //   window.location.reload()
-      }
+      .then(window.location.reload()
       ).catch(error => console.log(error));
       
       }
@@ -103,6 +103,24 @@ const handleChange = (e) => {
                 const date = new Date(dateString);
                 return format(date, 'dd-MMM-yyyy'); // Custom format to display 'YYYY-MM-DD'
               };
+
+      const handleDelete = async(ids)=>{
+        if (window.confirm('Are you sure?')) {
+      try {
+        await axios.delete(`${API_URL}/emp/deleteinc/${id}/${ids}`,{
+          headers:{
+            'Authorization': `Bearer ${token}`,
+            'company_id': company_id,
+            'role': role,
+            'email': email,
+          }
+        });
+        window.location.reload();
+      } catch (err) {
+        console.error('Delete failed:', err);
+      }
+    }
+      }
 
   return (
     <>
@@ -192,12 +210,13 @@ const handleChange = (e) => {
                 <th>Action</th>
                 <th>Days</th>
                 <th>Remark's</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            {inchistory.map((e,i)=>{
+            {inchistory.map((e,id)=>{
                 return (
-                    <tr key={i}>
+                    <tr key={id}>
                         <td>{formatDate(e.incidentdate)}</td>
                         <td>{e.inctype}</td>
                         <td>{e.incidentcat}</td>
@@ -205,6 +224,7 @@ const handleChange = (e) => {
                         <td>{e.actiontype}</td>
                         <td>{e.days}</td>
                         <td>{e.remark}</td>
+                        <td><DeleteOutlineOutlinedIcon onClick={()=>handleDelete(e.id)}/></td>
                     </tr>
                 )
             })}

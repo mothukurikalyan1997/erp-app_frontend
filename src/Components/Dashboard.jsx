@@ -3,8 +3,8 @@ import {API_URL} from '../data/Data'
 import { BeatLoader } from 'react-spinners';
 import Sidenav from './Sidenav';
 import axios from 'axios';
+import { ResponsiveContainer, BarChart, Bar, XAxis,YAxis , Tooltip, LabelList } from 'recharts';
 
-import { BarChart, Bar, XAxis, ResponsiveContainer, Tooltip } from 'recharts';
 const Dashboard = () => {
   // Example data (you can replace it with real data from your API)
 
@@ -34,22 +34,28 @@ const Dashboard = () => {
       .catch(err => console.log(err));
   }, []);
 
-  useEffect(() => {
-
-    axios.get(`${API_URL}/api/expenses`,{
-      headers:{
-        'Authorization': `Bearer ${token}`,
-        'company_id': company_id,
-        'role': role,
-        'email': email,
-      }
-    })
-      .then(res => {
-        setExpenses(res.data)
-      })
-      .catch(err => window.alert(err));
-  }, []);
-
+useEffect(() => {
+  axios.get(`${API_URL}/api/expenses`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'company_id': company_id,
+      'role': role,
+      'email': email,
+    }
+  })
+  .then(res => {
+    // Convert Total to number
+    const cleanedData = res.data.map(item => ({
+      ...item,
+      Total: parseFloat(item.Total),
+      Deduct_Amount: parseFloat(item.Deduct_Amount),
+      VAT: parseFloat(item.VAT)
+    }));
+    
+    setExpenses(cleanedData);
+  })
+  .catch(err => window.alert(err));
+}, []);
 
   return (
     <div className='full-container'>
@@ -96,13 +102,20 @@ const Dashboard = () => {
           </div>
         </div>
     
-        <div className="barchart" style={{ width: 400, height: 300 }}>
+        <div className="barchart" style={{ width: 400, height: 300 , marginTop: 50}}>
           
         <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={expenses}>
+            <BarChart data={expenses} margin={{ top: 20 }}>
               <XAxis dataKey="exp_cat" />
+              <YAxis domain={[0, 'dataMax + 10']} />
               <Tooltip />
-              <Bar dataKey="Total" fill="#8884d8" />
+               <Bar dataKey="Total" fill="#8884d8">
+                <LabelList 
+                  dataKey="Total" 
+                  position="top"
+                  style={{ fill: '#000', fontWeight: 'bold' }}
+                />
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
           <h1>Total Expenses with Catagory</h1>

@@ -18,6 +18,7 @@ const ViewInvoice = () => {
   const { id } = useParams();
   const [invoice, setInvoice] = useState(null);
   const [profile, setProfile] = useState([]);
+  const [customer,setCustomer] = useState([])
 
   useEffect(() => {
     axios.get(`${API_URL}/invoices/${id}`,{
@@ -45,6 +46,9 @@ const ViewInvoice = () => {
     });
   }, []);
 
+
+
+
   const printPDF = () => {
     const element = document.getElementById('invoice-pdf');
     html2pdf().from(element).save(`Invoice-${invoice.invoice.invoice_number}.pdf`);
@@ -69,34 +73,39 @@ const ViewInvoice = () => {
       <div className="actual-container">
         <div className="white-box">
         <div  style={{ fontFamily: 'Arial, sans-serif', background: '#fff', borderRadius: 8 ,height:'794px',width:'1123px',margin: '0 auto',padding: '40px',boxSizing: 'border-box'}}>
-  <div id="invoice-pdf" style={{ padding: 20, border: '1px solid #ccc', borderRadius: 8, background: '#f9f9f9' }}>
-    
-    {/* Header Section */}
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
-      <div>
-        
-        {/* Company Logo or Placeholder */}
-        <h2 style={{ marginBottom: 5, color: '#333' }}>🧾 Invoice</h2>
-        <div><strong>Invoice #:</strong> {inv.invoice_number}</div>
-      </div>
+  <div id="invoice-pdf" style={{ padding: 20,  borderRadius: 8, background: '#fff' }}>
+    <div >
+          <div style={{display:'flex', justifyContent:'space-between',alignItems:'center',padding:'5px'}}>
+            <h2>{profile.company_name}</h2>
+            <h2 style={{backgroundColor:inv.status === 'unpaid' ? 'tomato' : 'green', borderRadius:'10px', display: 'inline-block',height:'50px',width:'150px', textAlign:'center',alignContent:'center',color:inv.status === 'unpaid' ? 'white' : 'white'}}>{inv.status}</h2>
+          </div>      
+    </div><hr />
 
-      <div style={{ textAlign: 'left' }}>
-        <h2 style={{backgroundColor:'green', borderRadius:'10px', display: 'inline-block',height:'50px',width:'150px', textAlign:'center',alignContent:'center',color:inv.status === 'unpaid' ? 'red' : 'white'}}>{inv.status}</h2>
-        {/* <div><strong>Company Name:</strong> {profile.company_name} || Test</div>
-        <div><strong>Country:</strong> {profile.country}</div>
-        <div><strong>Mobile:</strong> {profile.mobile_number}</div>
-        <div><strong>Email:</strong> {profile.mailid}</div> */}
-      </div>
+    <div style={{display:'flex', justifyContent:'space-between',gap:'5px',marginBottom:'10px'}}>
+        <div style={{display:'flex',padding:'10px',flexDirection:'column',gap:'5px'}}>
+          <div><strong>Company Name:</strong> {profile.company_name} || Test</div>
+          <div><strong>Country:</strong> {profile.country}</div>
+          <div><strong>Mobile:</strong> {profile.mobile_number}</div>
+          <div><strong>Email:</strong> {profile.mailid}</div>
+          <div><strong>TRN:</strong> </div>
+        </div>
+          <div style={{display:'flex',padding:'10px',flexDirection:'column',gap:'5px'}}>
+            <div><strong>TAX Invoice #:</strong> {inv.invoice_number}</div>
+            <div><strong>Invoice Date:</strong> {inv.date.split('T')[0]}</div>
+            <div><strong>From:</strong> {inv.from_date.split('T')[0]}</div>
+            <div><strong>To:</strong> {inv.to_date.split('T')[0]}</div>
+            <div><strong>Due Date:</strong> {inv.due_date.split('T')[0]}</div>
+        </div>
+
     </div>
-
     {/* Invoice Meta Section */}
-    <div style={{ border: '1px solid #ddd', borderRadius: 6, padding: 15, marginBottom: 20, background: '#fff',display:'flex',flexDirection:'column',justifyContent:'flex-start',gap:'5px' }}>
-      <div><strong>Customer:</strong> {inv.customer_name}</div>
-      <div><strong>Date:</strong> {inv.date.split('T')[0]}</div>
-      <div><strong>From:</strong> {inv.from_date.split('T')[0]}</div>
-      <div><strong>To:</strong> {inv.to_date.split('T')[0]}</div>
-      <div><strong>Due Date:</strong> {inv.due_date.split('T')[0]}</div>
-      <div><strong>Status:</strong> {inv.status}</div>
+    <div style={{ border: '1px solid #ddd', borderRadius: 6, padding: 15, marginBottom: 20, background: '#b8b894',display:'flex',flexDirection:'column',justifyContent:'flex-start',gap:'5px' }}>
+      <div><strong>Invoice To:</strong></div>
+      <div>{inv.companyName}</div>
+      <div>{inv.email}</div>
+      <div>{inv.trn}</div>
+      <div>{inv.City}</div>
+      <div>{inv.State}</div>
     </div>
 
     {/* Product Table */}
@@ -130,14 +139,15 @@ const ViewInvoice = () => {
       <h3><strong>Total:</strong> AED {(subtotal + totalVat).toFixed(2)}</h3>
     </div>
 
-    {/* Extra Options */}
+  </div>
+      {/* Extra Options */}
     <div style={{ marginTop: 30, paddingTop: 10, borderTop: '1px solid #ccc', display: 'flex', justifyContent: 'space-between' }}>
       <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
         <button className='nani' onClick={printPDF}>🖨️ Print PDF</button>
         <button className='nani-cancel' onClick={() => navigate('/accounts/Newinvoicelist')}>🔙 Back</button>
       </div>
     </div>
-  </div>
+
 </div>
 
         </div>

@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
 import SecurityIcon from '@mui/icons-material/Security';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
@@ -16,24 +17,36 @@ import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 
 import { useLocation } from "react-router-dom"; // To get current route and highlight active
 
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("company_id");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
+
+    // Redirect to the login page after logging out
+    navigate("/login");
+  };
+
+
 const dropdownMenus = [
   {
     id: 'Employee',
     label: 'Employee',
-    icon:<PersonIcon/>,
+    icon: <PersonIcon />,
     basePath: '/employee',
+    roles: ['admin', 'super_user'], // 👈 only these roles can see it
     links: [
       { to: '/employee/employeetable', label: 'Employee Table' },
       { to: '/employee/employeesaltable', label: 'Salary Table' },
-      // { to: '/employee/salarycertificate', label: 'Salary Certificate' },
-      // { to: '/employee/empofferletter', label: 'Offer Letter' },
     ],
   },
   {
     id: 'accounts',
     label: 'Accounts',
-    icon:<SecurityIcon/>,
+    icon: <SecurityIcon />,
     basePath: '/accounts',
+    roles: ['admin', 'super_user'], // 👈 visible to admin and user
     links: [
       { to: '/accounts/Newinvoicelist', label: 'Invoice Data' },
     ],
@@ -41,8 +54,9 @@ const dropdownMenus = [
   {
     id: 'purchase',
     label: 'Purchase',
-    icon:<ShoppingCartIcon/>,
+    icon: <ShoppingCartIcon />,
     basePath: '/purchase',
+    roles: ['admin', 'super_user'], // 👈 only visible to super_user
     links: [
       { to: '/purchase/expensetable', label: 'Expenses' },
     ],
@@ -106,32 +120,36 @@ const Sidenav = () => {
           Asset Manager
       </NavLink>
 
-      {dropdownMenus.map(menu => (
-        <div className="dropdown" key={menu.id}>
-          <button
-            className="dropdown-toggle"
-            onClick={() => toggleDropdown(menu.id)}
-          >
-            <span style={{marginRight:'5px'}}>{menu.icon}</span>{menu.label}<ArrowDropDownIcon/>
-          </button>
+      {dropdownMenus
+  .filter(menu => menu.roles.includes(role)) // 👈 filter by role
+  .map(menu => (
+    <div className="dropdown" key={menu.id}>
+      <button
+        className="dropdown-toggle"
+        onClick={() => toggleDropdown(menu.id)}
+      >
+        <span style={{ marginRight: '5px' }}>{menu.icon}</span>
+        {menu.label}
+        <ArrowDropDownIcon />
+      </button>
 
-          {openDropdowns[menu.id] && (
-            <div className="dropdown-menu">
-              {menu.links.map(link => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  className={({ isActive }) =>
-                    isActive ? 'dropdown-link active' : 'dropdown-link'
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ))}
-            </div>
-          )}
+      {openDropdowns[menu.id] && (
+        <div className="dropdown-menu">
+          {menu.links.map(link => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) =>
+                isActive ? 'dropdown-link active' : 'dropdown-link'
+              }
+            >
+              {link.label}
+            </NavLink>
+          ))}
         </div>
-      ))}
+      )}
+    </div>
+  ))}
 
 
 {role === 'super_user' && (
@@ -146,11 +164,18 @@ const Sidenav = () => {
   </NavLink>
 )}
 
-      <NavLink
+      {role === 'super_user' || role === 'admin' && (<NavLink
         to="/Banking"
         className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
       ><span style={{marginRight:'5px'}}><HomeIcon/></span>
         Bank
+      </NavLink>)}
+      <NavLink
+        to="/Login"
+        className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+        onClick={handleLogout}
+      ><span style={{marginRight:'5px'}}><LogoutIcon/></span>
+        Logout
       </NavLink>
     </nav>
 

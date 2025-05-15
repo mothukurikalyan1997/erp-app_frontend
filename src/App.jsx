@@ -35,6 +35,7 @@ import EditInvoice from './Pages/Invoice/EditInvoice';
 import ExpenseForm from './Pages/Expenses/ExpenseForm';
 import ExpenseTable from './Pages/Expenses/ExpenseTable';
 import ExpenseEditor from './Pages/Expenses/ExpenseEditor';
+import EmployeeEdit from './Pages/Employee/EmployeeEdit';
 
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="/vacation" element={<ProtectedRoute element={<VacationRegister />} />} />
             <Route path="/penalty" element={<ProtectedRoute element={<PenaltyRegister />} />} />
             <Route path="/employee/employeetable" element={<ProtectedRoute element={<EmployeeTable />} />} />
+            <Route path="/employeeedit/:id" element={<ProtectedRoute element={<EmployeeEdit />} />} />
             <Route path="/employee/employeesaltable" element={<ProtectedRoute element={<EmpSalTable />} />} />
             <Route path="/employee/empsaledit/:id/:month/:year" element={<ProtectedRoute element={<EmpSalaryEdit />} />} />
             <Route path="/photo" element={<ProtectedRoute element={<Photo />} />} />

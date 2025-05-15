@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {API_URL} from '../../data/Data'
 import Navbar from '../../Components/Navbar'
 import Sidenav from '../../Components/Sidenav'
@@ -10,6 +10,8 @@ const EmployeeSalary = () => {
   const company_id = localStorage.getItem('company_id')
   const role = localStorage.getItem('role')
   const email = localStorage.getItem('email')
+
+      const [bank,setBank] = useState([])
 
         const [salary, setSalary] = useState({
             month:'',
@@ -53,9 +55,23 @@ const EmployeeSalary = () => {
         }
         else{
           window.alert("Month is Mandatory")
-        }
-        
+        }        
 }
+
+useEffect(()=>{
+const token = localStorage.getItem('token');
+axios.get(`${API_URL}/bank/bank/data`,{
+  headers:{
+    'Authorization': `Bearer ${token}`,
+    'company_id': company_id,
+    'role': role,
+    'email': email,
+  }
+})
+  .then(res => setBank(res.data))
+  .catch(err=> console.log(err));
+},[])
+
 
 
   return (
@@ -113,7 +129,11 @@ const EmployeeSalary = () => {
             </div>
             <div style={{width:'600px', display:'flex', alignItems:'center'}}>
                 <label htmlFor="" style={{width:'200px'}}>Paid_through</label>
-                <input type="text" name="paid_through" onChange={handleChange}  value={salary.paid_through}/>
+                <select name="paid_through" onChange={handleChange} value={salary.paid_through}>
+                  {bank.map((e,i)=>(
+                    <option value={e.accountHolder} key={i}>{e.accountHolder}</option>
+                  ))}
+                </select>
             </div>
 
 

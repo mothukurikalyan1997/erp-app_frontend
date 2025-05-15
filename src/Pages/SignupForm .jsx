@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {API_URL} from '../data/Data/'
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
+import Sidenav from "../Components/Sidenav";
+import Navbar from "../Components/Navbar";
 
 const SignupForm = () => {
+
+  const tokens = localStorage.getItem('token')
+  const company_ids = localStorage.getItem('company_id')
+  const roles = localStorage.getItem('role')
+  const emails = localStorage.getItem('email')
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +20,7 @@ const SignupForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const Navigate = useNavigate();
 
+  const [table,setTable] = useState([])
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -27,31 +35,42 @@ const SignupForm = () => {
       if (response.data.success) {
         setSuccessMessage("Registration successful! Please login.");
         setErrorMessage("");
-        Navigate("/login");
+        window.location.reload()
       } 
     } catch (error) {
       setErrorMessage("Server error, please try again.");
     }
   };
 
-  return (
-    <>    <header className="header">
-    <div className="logo">
-      <h1>AWRS+</h1>
-    </div>
-    <nav className="nav">
-      <ul className="nav-links">
-        <Link to={'/login'}><li>Login</li></Link>
-      </ul>
-    </nav>
-  </header>
-
-    <div className="signup">
+      useEffect(() => {
+    axios.get(`${API_URL}/userdata`,{
       
+      headers:{
+        'Authorization': `Bearer ${tokens}`,
+        'company_id': company_ids,
+        'role': roles,
+        'email': emails
+      }
+    }).then(res => {
+      setTable(res.data);
+    });
+  }, []);
+
+  const navigate = useNavigate()
+  return (
+    <>   
+    <Navbar/>
+    <div className="full-container">
+      <div className="side-ccontainer">
+        <Sidenav/>
+      </div>
+      <div className="actual-container">
+        <div className="white-box">
+
+      <button className="nani" onClick={()=>navigate('/Landing')}>Cancel</button>
 <div className="signup-form">
-      <h2>Signup for ERP</h2>
+      <h2>New User Creation</h2>
       <form onSubmit={handleSignup}>
-        <div>
         <input
           type="email"
           placeholder="Email"
@@ -60,8 +79,6 @@ const SignupForm = () => {
           required
         />
 
-        </div>
-        <div>
         <input
           type="password"
           placeholder="Password"
@@ -70,16 +87,12 @@ const SignupForm = () => {
           required
         />
 
-        </div>
-        <div>
           <select name="role" id=""  value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="">Select Role</option>
             <option value="admin">Admin</option>
             <option value="user">User</option>
             <option value="super_user">Super_user</option>
           </select>
-        </div>
-        <div>
         <input
           type="number"
           placeholder="Company ID"
@@ -88,17 +101,38 @@ const SignupForm = () => {
           required
         />
 
-        </div>
-        <div style={{ display:"flex", justifyContent:"center"}}>
         <button type="submit">Signup</button>
 
-        </div>
       </form>
       {errorMessage && <div className="error">{errorMessage}</div>}
       {successMessage && <div className="success">{successMessage}</div>}
     </div>
-
+      <div style={{height: '500px', overflowY: 'auto', border: '1px solid #ccc'}}>
+        <table className="dynamic-table">
+          <thead style={{ position: 'sticky', top: 0, background: '#f9f9f9' }}>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Company ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {table.map((e)=>(
+              <tr key={e.id}>
+                <td>{e.id}</td>
+                <td>{e.email}</td>
+                <td>{e.role}</td>
+                <td>{e.company_id}</td>
+                </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
+
+        </div>
+      </div>
     </>
 
   );
