@@ -35,7 +35,7 @@ const dropdownMenus = [
     label: 'Employee',
     icon: <PersonIcon />,
     basePath: '/employee',
-    roles: ['admin', 'super_user'], // 👈 only these roles can see it
+    roles: ['user','admin', 'super_user'], // 👈 only these roles can see it
     links: [
       { to: '/employee/employeetable', label: 'Employee Table' },
       { to: '/employee/employeesaltable', label: 'Salary Table' },
